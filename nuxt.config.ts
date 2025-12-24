@@ -50,6 +50,18 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   css: ['~/assets/css/main.css'],
+
+  // vite: {
+  //   css: {
+  //     preprocessorOptions: {
+  //       scss: {
+  //         additionalData: '@use "~/app/assets/scss/_variables.scss" as *;',
+  //         api: 'modern-compiler',
+  //       },
+  //     },
+  //   },
+  // },
+
   future: {
     compatibilityVersion: 5,
   },
