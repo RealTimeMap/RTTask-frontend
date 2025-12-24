@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useWebNotifications } from '~/composables/use-web-notification'
+import { useWebNotifications } from '~/shared/composables/use-web-notification'
 
 const { requestPermission, getPermission } = useWebNotifications()
 const toast = useToast()

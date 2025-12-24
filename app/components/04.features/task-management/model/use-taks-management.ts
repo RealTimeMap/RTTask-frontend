@@ -1,4 +1,6 @@
 import type { ITask } from '~/shared/types/task'
+import { defineStore } from 'pinia'
+import { useWebNotifications } from '~/shared/composables/use-web-notification'
 import { tasksRepository } from '~/shared/services/database/tasks.repository'
 
 export interface TaskCard {
