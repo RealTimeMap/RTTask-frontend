@@ -1,0 +1,23 @@
+:root {
+  // Typography
+  --font-main: 'Inter', sans-serif;
+  --text-base-size: 16px;
+
+  // Spacing Scale (8pt grid)
+  --space-unit: 4px;
+  --space-xs: calc(var(--space-unit) * 1); // 4px
+  --space-sm: calc(var(--space-unit) * 2); // 8px
+  --space-md: calc(var(--space-unit) * 4); // 16px
+  --space-lg: calc(var(--space-unit) * 6); // 24px
+  --space-xl: calc(var(--space-unit) * 8); // 32px
+
+  // Borders
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  // Shadows
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}

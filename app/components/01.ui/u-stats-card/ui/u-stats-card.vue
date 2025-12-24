@@ -2,8 +2,8 @@
 defineProps<{
   label: string
   value: number | string
-  icon: string
-  colorClass: string
+  icon?: string
+  colorClass?: string
 }>()
 </script>
 

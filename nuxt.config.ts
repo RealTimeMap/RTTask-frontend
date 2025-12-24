@@ -49,18 +49,23 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt',
   ],
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    '~/assets/scss/main.scss',
+  ],
 
-  // vite: {
-  //   css: {
-  //     preprocessorOptions: {
-  //       scss: {
-  //         additionalData: '@use "~/app/assets/scss/_variables.scss" as *;',
-  //         api: 'modern-compiler',
-  //       },
-  //     },
-  //   },
-  // },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "~/assets/scss/_variables.scss" as *;
+            @use "~/assets/scss/_mixins.scss" as *;
+          `,
+        },
+      },
+    },
+  },
 
   future: {
     compatibilityVersion: 5,
@@ -68,7 +73,7 @@ export default defineNuxtConfig({
 
   components: [
     {
-      path: '~/app/components/01.Ui',
+      path: '~/components/01.ui',
       pathPrefix: false,
     },
   ],
@@ -76,7 +81,7 @@ export default defineNuxtConfig({
   hooks: {
     'components:dirs': function (dirs) {
       dirs.length = 0
-      const featureDirs = findFeatureDirs('app/components/01.Ui')
+      const featureDirs = findFeatureDirs('app/components/01.ui')
       dirs.push(...featureDirs)
     },
   },
