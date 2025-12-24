@@ -10,6 +10,7 @@ export interface TaskCard {
 
 export const useTaskManagementStore = defineStore('task-management', () => {
   const tasks = ref<ITask[]>([])
+  const { sendNotification } = useWebNotifications()
   const isLoading = ref(false)
   const toast = useToast()
 
@@ -43,6 +44,12 @@ export const useTaskManagementStore = defineStore('task-management', () => {
               task.status = 'todo'
             },
           }],
+        })
+
+        sendNotification('Task Completed! 🎉', {
+          body: `You just finished: ${task.title}`,
+          tag: 'task-done',
+          silent: false,
         })
       }
     }

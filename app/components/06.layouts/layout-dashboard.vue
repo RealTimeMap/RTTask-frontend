@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import NotificationToggle from '../04.features/task-management'
 
 const isSidebarOpen = ref(true)
 
@@ -59,6 +60,8 @@ const items: NavigationMenuItem[] = [
         />
 
         <div class="flex-1" />
+
+        <notification-toggle />
       </template>
 
       <template #footer="{ collapsed }">
