@@ -10,7 +10,7 @@ export interface TaskCard {
 
 export const useTaskManagementStore = defineStore('task-management', () => {
   const tasks = ref<ITask[]>([])
-  const { sendNotification } = useWebNotifications()
+  const { sendNotification, isSupported, getPermission } = useWebNotifications()
   const isLoading = ref(false)
   const toast = useToast()
 
@@ -46,11 +46,13 @@ export const useTaskManagementStore = defineStore('task-management', () => {
           }],
         })
 
-        sendNotification('Task Completed! 🎉', {
-          body: `You just finished: ${task.title}`,
-          tag: 'task-done',
-          silent: false,
-        })
+        if (isSupported() && getPermission() === 'granted') {
+          sendNotification('Task Completed! 🎉', {
+            body: `You just finished: ${task.title}`,
+            tag: 'task-done',
+            silent: false,
+          })
+        }
       }
     }
   }

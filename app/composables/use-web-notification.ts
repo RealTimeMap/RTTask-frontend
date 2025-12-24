@@ -1,37 +1,52 @@
 /* eslint-disable node/prefer-global/process */
 export function useWebNotifications() {
-  const isSupported = process.client && 'Notification' in window
+  const isSupported = () => {
+    if (!process.client)
+      return false
+    return 'Notification' in window && typeof window.Notification !== 'undefined'
+  }
+
+  const getPermission = () => {
+    if (!isSupported())
+      return 'denied'
+    return Notification.permission
+  }
 
   const requestPermission = async () => {
-    if (!isSupported)
+    if (!isSupported())
       return false
 
-    if (Notification.permission === 'granted')
-      return true
-
-    const permission = await Notification.requestPermission()
-    return permission === 'granted'
+    try {
+      const permission = await Notification.requestPermission()
+      return permission === 'granted'
+    }
+    catch (e) {
+      console.error('Notification permission request failed:', e)
+      return false
+    }
   }
 
   const sendNotification = (title: string, options?: NotificationOptions) => {
-    if (!isSupported || Notification.permission !== 'granted')
+    if (!isSupported() || getPermission() !== 'granted') {
+      console.warn('Notifications are not supported or blocked on this device')
       return
+    }
 
-    const notification = new Notification(title, {
-      icon: '/icon.png',
-      badge: '/badge.png',
-      ...options,
-    })
-
-    notification.onclick = () => {
-      window.focus()
-      notification.close()
+    try {
+      // eslint-disable-next-line no-new
+      new Notification(title, {
+        icon: '/icon.png',
+        ...options,
+      })
+    }
+    catch (e) {
+      console.error('Standard notification failed, device might require Service Worker', e)
     }
   }
 
   return {
     isSupported,
-    permission: process.client ? Notification.permission : 'default',
+    getPermission,
     requestPermission,
     sendNotification,
   }
