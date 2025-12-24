@@ -1,0 +1,71 @@
+import { readdirSync } from 'node:fs'
+import { basename, resolve } from 'node:path'
+
+// --- Хелпер для поиска директорий с index.vue ---
+function findFeatureDirs(startPath: string): any[] {
+  const basePath = resolve(__dirname, startPath)
+  const results: any[] = []
+
+  // Рекурсивная функция для обхода папок
+  function recurse(currentPath: string) {
+    const entries = readdirSync(currentPath, { withFileTypes: true })
+    const hasIndexTs = entries.some(entry => entry.isFile() && entry.name === 'index.ts')
+
+    if (hasIndexTs) {
+      const componentName = basename(currentPath)
+      results.push({
+        path: currentPath,
+        prefix: componentName,
+        pattern: 'index.ts',
+        extensions: ['.ts'],
+      })
+    }
+
+    // Продолжаем поиск во вложенных папках
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        recurse(resolve(currentPath, entry.name))
+      }
+    }
+  }
+
+  try {
+    recurse(basePath)
+  }
+  catch (error) {
+    console.warn(`Could not scan directory: ${basePath}`, error)
+  }
+
+  return results
+}
+
+export default defineNuxtConfig({
+  compatibilityDate: '2025-07-15',
+  devtools: {
+    enabled: true,
+  },
+  modules: [
+    '@nuxt/test-utils',
+    '@nuxt/ui',
+    '@pinia/nuxt',
+  ],
+  css: ['~/assets/css/main.css'],
+  future: {
+    compatibilityVersion: 5,
+  },
+
+  components: [
+    {
+      path: '~/app/components/01.Ui',
+      pathPrefix: false,
+    },
+  ],
+
+  hooks: {
+    'components:dirs': function (dirs) {
+      dirs.length = 0
+      const featureDirs = findFeatureDirs('app/components/01.Ui')
+      dirs.push(...featureDirs)
+    },
+  },
+})
