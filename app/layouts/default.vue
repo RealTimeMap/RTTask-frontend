@@ -5,5 +5,6 @@ import LayoutDashboard from '~/components/06.layouts/layout-dashboard.vue'
 <template>
   <layout-dashboard>
     <slot />
+    <u-toaster />
   </layout-dashboard>
 </template>

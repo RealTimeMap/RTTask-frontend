@@ -11,6 +11,7 @@ export interface TaskCard {
 export const useTaskManagementStore = defineStore('task-management', () => {
   const tasks = ref<ITask[]>([])
   const isLoading = ref(false)
+  const toast = useToast()
 
   const fetchTasks = async () => {
     isLoading.value = true
@@ -22,12 +23,30 @@ export const useTaskManagementStore = defineStore('task-management', () => {
     }
   }
 
-  // const stats = computed(() => ({
-  //   total: tasks.value.length,
-  //   completed: tasks.value.filter(t => t.status === 'done').length,
-  //   todo: tasks.value.filter(t => t.status !== 'done').length,
-  // }))
+  const toggleTaskStatus = async (taskId: number) => {
+    const task = tasks.value.find(t => t.id === taskId)
 
+    if (task) {
+      const isCompleting = task.status !== 'done'
+      task.status = isCompleting ? 'done' : 'todo'
+
+      if (isCompleting) {
+        toast.add({
+          title: 'Task Completed!',
+          description: `"${task.title}" has been moved to done.`,
+          icon: 'i-lucide-check-circle',
+          color: 'success',
+          id: `task-${taskId}`,
+          actions: [{
+            label: 'Undo',
+            onClick: async () => {
+              task.status = 'todo'
+            },
+          }],
+        })
+      }
+    }
+  }
   const stats = computed<TaskCard[]>(() => {
     return [
       {
@@ -61,6 +80,7 @@ export const useTaskManagementStore = defineStore('task-management', () => {
     tasks,
     isLoading,
     fetchTasks,
+    toggleTaskStatus,
     stats,
 
     totalTasks: computed(() => tasks.value.length),

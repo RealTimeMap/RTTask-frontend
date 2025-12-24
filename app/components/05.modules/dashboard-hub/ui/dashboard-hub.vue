@@ -65,7 +65,7 @@ onMounted(() => store.fetchTasks())
             v-for="task in store.tasks"
             :key="task.id"
             :task="task"
-            @complete="console.log('Complete:', task.id)"
+            @complete="store.toggleTaskStatus(task.id)"
           />
         </div>
       </u-card>
