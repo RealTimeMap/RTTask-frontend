@@ -28,7 +28,6 @@ watch(updateAvailable, (isAvailable) => {
 }, { immediate: true })
 
 onMounted(() => {
-  // Показываем предложение установки только если не установлено
   if (!isInstalled.value) {
     setTimeout(() => showPrompt.value = true, 3000)
   }
@@ -48,8 +47,8 @@ async function handleInstall() {
     >
       <u-alert
         icon="i-lucide-download"
-        color="primary"
-        variant="subtle"
+        color="info"
+        variant="solid"
       >
         <template #title>
           Install RT-Task
