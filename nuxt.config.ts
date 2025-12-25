@@ -75,6 +75,9 @@ export default defineNuxtConfig({
       short_name: 'RT-Task',
       description: 'Professional Task Management System',
       theme_color: '#6366f1',
+      background_color: '#ffffff',
+      display: 'standalone',
+      start_url: '/',
       icons: [
         {
           src: 'pwa-192x192.png',
@@ -94,6 +97,7 @@ export default defineNuxtConfig({
         },
       ],
     },
+    injectRegister: 'auto',
     workbox: {
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
@@ -103,7 +107,7 @@ export default defineNuxtConfig({
     },
     devOptions: {
       enabled: true,
-      type: 'classic',
+      type: 'module',
     },
   },
 
