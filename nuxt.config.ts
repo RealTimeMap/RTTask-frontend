@@ -70,13 +70,16 @@ export default defineNuxtConfig({
 
   pwa: {
     registerType: 'autoUpdate',
+    injectRegister: false,
+
     manifest: {
       name: 'RT-Task Manager',
       short_name: 'RT-Task',
-      description: 'Professional Task Management System',
       theme_color: '#6366f1',
       background_color: '#ffffff',
       display: 'standalone',
+      orientation: 'portrait',
+      scope: '/',
       start_url: '/',
       icons: [
         {
@@ -88,26 +91,14 @@ export default defineNuxtConfig({
           src: 'pwa-512x512.png',
           sizes: '512x512',
           type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
           purpose: 'any maskable',
         },
       ],
     },
-    injectRegister: 'auto',
-    workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-    },
-    client: {
-      installPrompt: true,
-    },
     devOptions: {
       enabled: true,
       type: 'module',
+      navigateFallback: '/',
     },
   },
 
