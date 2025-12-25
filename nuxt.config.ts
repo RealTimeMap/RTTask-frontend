@@ -71,6 +71,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     injectRegister: false,
+    registerWebManifestInRouteRules: false,
 
     manifest: {
       name: 'RT-Task Manager',
@@ -96,7 +97,7 @@ export default defineNuxtConfig({
       ],
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
       type: 'module',
       navigateFallback: '/',
     },

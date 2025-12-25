@@ -66,19 +66,6 @@ export default antfu({
       },
     ],
 
-    'vue/multi-word-component-names': [
-      'error',
-      {
-        ignores: [
-          'index',
-          'default',
-          'app',
-          'error',
-          'README',
-        ],
-      },
-    ],
-
     'vue/max-attributes-per-line': [
       'error',
       {

@@ -61,7 +61,7 @@ const items: NavigationMenuItem[] = [
 
         <div class="flex-1" />
 
-        <notification-toggle />
+        <notification-toggle v-if="!collapsed" />
       </template>
 
       <template #footer="{ collapsed }">
