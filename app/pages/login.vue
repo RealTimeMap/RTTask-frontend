@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
+import type { LoginResponse } from '~/shared/utils/auth/index.type'
 import * as z from 'zod'
+import { authApi } from '~/shared/utils/auth'
 
 definePageMeta({
   layout: 'no-empty',
@@ -29,13 +31,26 @@ const schema = z.object({
   password: z.string('Password is required').min(8, 'Must be at least 8 characters'),
 })
 
+function onLoginSuccess(response: LoginResponse) {
+  useCookie('token', {
+    default: () => response.accessToken,
+  })
+  navigateTo('/')
+}
+
 type Schema = z.output<typeof schema>
 
 function onSubmit(payload: FormSubmitEvent<Schema>) {
-  useCookie('token', {
-    default: () => `${payload.data.email}-token`,
-  })
-  navigateTo('/')
+  authApi.login(payload.data)
+    .then(
+      onLoginSuccess,
+    )
+    .catch((error) => {
+      console.error('Login failed:', error)
+    })
+  // useCookie('token', {
+  //   default: () => `${payload.data.email}-token`,
+  // })
 }
 </script>
 

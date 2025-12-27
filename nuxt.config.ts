@@ -114,6 +114,10 @@ export default defineNuxtConfig({
     },
   ],
 
+  devServer: {
+    host: '127.0.0.1', // лечение проблем с подключением к локальному хосту на винде
+  },
+
   hooks: {
     'components:dirs': function (dirs) {
       dirs.length = 0
