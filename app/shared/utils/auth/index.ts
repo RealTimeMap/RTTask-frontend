@@ -3,6 +3,10 @@ import { api } from '~/shared/services/api/fetch.helpers'
 
 export const authApi = {
   login(payload: LoginPayload): Promise<LoginResponse> {
-    return api.post('/auth/login', payload)
+    return api.post('/auth/login', payload, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
   },
 }
