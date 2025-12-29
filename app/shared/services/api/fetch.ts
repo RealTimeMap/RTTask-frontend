@@ -8,9 +8,11 @@ import type {
 import { FetchError } from 'ofetch'
 
 function isBackendError(data: unknown): data is BackendErrorDetail {
-  return typeof data === 'object' && data !== null && 'message' in data
-}
+  if (typeof data !== 'object' || data === null)
+    return false
 
+  return 'message' in data || 'detail' in data || 'title' in data
+}
 function normalizeError(error: unknown): ApiError {
   const apiError: ApiError = {
     message: 'Произошла неизвестная ошибка',
@@ -22,11 +24,11 @@ function normalizeError(error: unknown): ApiError {
     const errorData = error.response?._data
 
     if (isBackendError(errorData)) {
-      apiError.message = errorData.message
+      apiError.message = errorData.detail || errorData.message || errorData.title || 'Ошибка сервера'
       apiError.details = errorData
     }
     else {
-      apiError.message = error.message || 'Ошибка сети'
+      apiError.message = error.statusMessage || error.message || 'Ошибка сети'
     }
   }
 
