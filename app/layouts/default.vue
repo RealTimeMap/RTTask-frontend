@@ -7,6 +7,6 @@ import LayoutDashboard from '~/components/06.layouts/layout-dashboard.vue'
   <layout-dashboard>
     <slot />
     <!-- <pwa-install-prompt /> -->
-    <u-toaster />
+    <!-- <u-toaster /> -->
   </layout-dashboard>
 </template>

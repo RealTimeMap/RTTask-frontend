@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
-import type { LoginResponse } from '~/shared/utils/auth/index.type'
 import * as z from 'zod'
 import { authApi } from '~/shared/utils/auth'
 
@@ -8,49 +7,58 @@ definePageMeta({
   layout: 'no-empty',
 })
 
-const fields: AuthFormField[] = [{
-  name: 'email',
-  type: 'email',
-  label: 'Email',
-  placeholder: 'Enter your email',
-  required: true,
-}, {
-  name: 'password',
-  label: 'Password',
-  type: 'password',
-  placeholder: 'Enter your password',
-  required: true,
-}, {
-  name: 'remember',
-  label: 'Remember me',
-  type: 'checkbox',
-}]
+const fields: AuthFormField[] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'Enter your email',
+    required: true,
+  },
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Password',
+    placeholder: 'Enter your password',
+    required: true,
+  },
+  {
+    name: 'remember',
+    type: 'checkbox',
+    label: 'Remember me',
+    defaultValue: true,
+  },
+]
 
 const schema = z.object({
   email: z.email('Invalid email'),
   password: z.string('Password is required').min(8, 'Must be at least 8 characters'),
+  remember: z.boolean().optional(),
 })
-
-function onLoginSuccess(response: LoginResponse) {
-  useCookie('token', {
-    default: () => response.accessToken,
-  })
-  navigateTo('/')
-}
 
 type Schema = z.output<typeof schema>
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  authApi.login(payload.data)
-    .then(
-      onLoginSuccess,
-    )
-    .catch((error) => {
-      console.error('Login failed:', error)
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  try {
+    const { email, password, remember } = payload.data
+
+    const response = await authApi.login({ email, password })
+
+    const cookieMaxAge = remember ? 60 * 60 * 24 * 30 : undefined
+
+    const tokenCookie = useCookie('token', {
+      maxAge: cookieMaxAge,
+      sameSite: 'lax',
+      secure: true,
     })
-  // useCookie('token', {
-  //   default: () => `${payload.data.email}-token`,
-  // })
+
+    tokenCookie.value = response.accessToken
+
+    await navigateTo('/')
+  }
+  catch (error) {
+    console.error('Login failed:', error)
+  }
 }
 </script>
 
