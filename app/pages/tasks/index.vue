@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import ModuleBoardView from '~/components/04.features/task-board'
+
+definePageMeta({ title: 'My Tasks' })
+
+useSeoMeta({
+  title: 'Task board',
+  themeColor: '#00DC82',
+  robots: 'noindex',
+})
 </script>
 
 <template>

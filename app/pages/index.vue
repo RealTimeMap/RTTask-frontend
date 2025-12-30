@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dashboardHub from '~/components/05.modules/dashboard-hub'
 
-definePageMeta({ title: 'Overview' })
+definePageMeta({ title: 'Home page' })
 
 useSeoMeta({
   title: () => `Dashboard • ${new Date().toLocaleDateString()}`,

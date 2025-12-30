@@ -19,7 +19,7 @@ watch(store.tasks, (tasks) => {
   columns.value.forEach((col) => {
     col.tasks = tasks.filter(task => task.status === col.id)
   })
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 async function updateColumnTasks(columnId: TaskStatus, tasks: ITask[]) {
   const col = columns.value.find(c => c.id === columnId)
