@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TaskRow from '~/components/03.domain/task/ui/task-row.vue'
-import { useTaskManagementStore } from '~/components/04.features/task-management/model/use-taks-management'
+import { useTaskManagementStore } from '~/components/04.features/task-management/model/use-task-management'
 
 const store = useTaskManagementStore()
 onMounted(() => store.fetchTasks())

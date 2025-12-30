@@ -16,11 +16,11 @@ const items: NavigationMenuItem[] = [
   //   badge: '4',
   //   to: '/inbox',
   // },
-  // {
-  //   label: 'My Tasks',
-  //   icon: 'i-lucide-clipboard-check',
-  //   to: '/tasks',
-  // },
+  {
+    label: 'My Tasks',
+    icon: 'i-lucide-clipboard-check',
+    to: '/tasks',
+  },
   // {
   //   label: 'Settings',
   //   icon: 'i-lucide-settings',

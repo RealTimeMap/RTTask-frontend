@@ -37,10 +37,7 @@ function taskActions(task: ITask) {
           >
             {{ task.title }}
           </p>
-          <span
-            class="absolute inset-0 z-0"
-            aria-hidden="true"
-          />
+
           <div class="flex gap-2 mt-1">
             <u-priority-badge :priority="task.priority" />
             <span class="text-xs text-gray-400 flex items-center gap-1">

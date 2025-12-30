@@ -9,7 +9,7 @@ useSeoMeta({ title: `Task #${taskId.value}`, robots: 'noindex' })
 
 <template>
   <u-modal-route
-    return-to="/"
+    return-to="/tasks"
     title="Task Details"
   >
     <feature-task-details :task-id="taskId" />
