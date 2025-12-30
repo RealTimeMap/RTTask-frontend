@@ -11,10 +11,10 @@ const emit = defineEmits<{
 }>()
 
 function taskActions(task: ITask) {
-  console.log(task)
   return [
+    [{ label: 'View', icon: 'i-heroicons-eye-20-solid', to: `/tasks/${task.id}` }],
     [{ label: 'Edit', icon: 'i-heroicons-pencil-square-20-solid' }],
-    [{ label: 'Delete', icon: 'i-heroicons-trash-20-solid', color: 'red' }],
+    [{ label: 'Delete', icon: 'i-heroicons-trash-20-solid', color: 'error' }],
   ]
 }
 </script>
@@ -23,25 +23,37 @@ function taskActions(task: ITask) {
   <div class="py-4 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <u-checkbox
+        class="relative z-10"
         :model-value="task.status === 'done'"
         @update:model-value="emit('complete')"
       />
       <div>
-        <p
-          class="font-medium"
-          :class="[task.status === 'done' ? 'line-through text-gray-400' : '']"
+        <nuxt-link
+          :to="`/tasks/${task.id}`"
         >
-          {{ task.title }}
-        </p>
-        <div class="flex gap-2 mt-1">
-          <u-priority-badge :priority="task.priority" />
-          <span class="text-xs text-gray-400 flex items-center gap-1">
-            <u-icon name="i-heroicons-calendar" /> {{ task.dueDate }}
-          </span>
-        </div>
+          <p
+            class="font-medium"
+            :class="[task.status === 'done' ? 'line-through text-gray-400' : '']"
+          >
+            {{ task.title }}
+          </p>
+          <span
+            class="absolute inset-0 z-0"
+            aria-hidden="true"
+          />
+          <div class="flex gap-2 mt-1">
+            <u-priority-badge :priority="task.priority" />
+            <span class="text-xs text-gray-400 flex items-center gap-1">
+              <u-icon name="i-heroicons-calendar" /> {{ task.dueDate }}
+            </span>
+          </div>
+        </nuxt-link>
       </div>
     </div>
-    <u-dropdown-menu :items="taskActions(task)">
+    <u-dropdown-menu
+      class="relative z-10"
+      :items="taskActions(task)"
+    >
       <u-button
         color="neutral"
         variant="ghost"
