@@ -65,6 +65,7 @@ onMounted(() => store.fetchTasks())
             v-for="task in store.tasks"
             :key="task.id"
             :task="task"
+            @click="navigateTo(`/tasks/${task.id}`)"
             @complete="store.toggleTaskStatus(task.id)"
           />
         </div>
