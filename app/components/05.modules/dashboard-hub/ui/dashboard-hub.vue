@@ -43,6 +43,7 @@ onMounted(() => store.fetchTasks())
               variant="ghost"
               label="View all"
               trailing-icon="i-heroicons-chevron-right"
+              @click="navigateTo('/tasks')"
             />
           </div>
         </template>
