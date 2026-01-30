@@ -18,7 +18,7 @@ export interface ApiError<T = BackendErrorDetail> {
   raw: FetchError | Error
 }
 export type SupportedBody = string | number | boolean | Record<string, any> | Array<any> | FormData | Blob | null
-export type SupportedQuery = Record<string, string | number | boolean | undefined | Array<string | number | boolean>>
+export type SupportedQuery = { [key: string]: any } | object
 
 export type RequestConfig<B = undefined, Q = undefined> = Omit<
   NitroFetchOptions<NitroFetchRequest>,
