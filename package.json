@@ -12,12 +12,9 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxi typecheck",
     "---------------------------------------------------------------------------------": "",
-    "postinstall": "nuxt prepare && simple-git-hooks",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "postinstall": "nuxt prepare && simple-git-hooks"
   },
   "dependencies": {
-    "@nuxt/test-utils": "3.23.0",
     "@nuxt/ui": "^4.4.0",
     "@pinia/nuxt": "^0.11.3",
     "nuxt": "^4.3.0",
@@ -32,8 +29,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
     "@iconify-json/lucide": "^1.2.87",
-    "@playwright/test": "^1.58.0",
-    "@tiptap/core": "^3.14.0",
+    "@tiptap/core": "^3.18.0",
     "@tiptap/extension-collaboration": "3.18.0",
     "@tiptap/extension-drag-handle": "^3.18.0",
     "@tiptap/extension-node-range": "^3.18.0",
@@ -50,13 +46,6 @@
     "simple-git-hooks": "^2.13.1",
     "y-protocols": "^1.0.7",
     "yjs": "^13.6.29"
-  },
-  "overrides": {
-    "@tiptap/core": "3.18.0",
-    "@tiptap/extension-collaboration": "3.18.0",
-    "@tiptap/extension-drag-handle": "3.18.0",
-    "@tiptap/pm": "3.18.0",
-    "@tiptap/vue-3": "3.18.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged && npx nuxi typecheck"
