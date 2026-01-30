@@ -59,8 +59,7 @@
     "@tiptap/vue-3": "3.18.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged",
-    "pre-push": "npx nuxi typecheck"
+    "pre-commit": "npx lint-staged && npx nuxi typecheck"
   },
   "lint-staged": {
     "*": "eslint --fix"
